@@ -31,7 +31,7 @@ services:
   caddy:
     image: caddy:2.10.2-alpine
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy:/etc/caddy:ro
       - caddy_data:/data
       - caddy_config:/config
     restart: unless-stopped
