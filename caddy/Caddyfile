@@ -1,8 +1,4 @@
-{
-  email admin@{env.APP_DOMAIN}
-}
-
-{env.APP_DOMAIN} {
+:8080 {
   encode zstd gzip
   request_body {
     max_size 100MB
