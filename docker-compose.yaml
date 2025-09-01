@@ -1,12 +1,12 @@
 version: 3.9
 x-app-env:
   environment:
-    - SERVICE_FQDN_FRONT=pm.bini.vn
+    - SERVICE_FQDN_CADDY=pm.bini.vn
     - CR_DB_URL=postgresql://selfhost:ouIGe_nYiOhH7Isv@cockroach:26257/defaultdb
     - DOCKER_NAME=huly
     - HULY_VERSION=v0.6.502
     - SECRET=changeme-secret-key
-    - HOST_ADDRESS=${SERVICE_FQDN_FRONT}
+    - HOST_ADDRESS=${SERVICE_FQDN_CADDY}
     - TITLE=Huly Self Host
     - DEFAULT_LANGUAGE=en
     - LAST_NAME_FIRST=true
