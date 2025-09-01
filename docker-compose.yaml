@@ -3,7 +3,7 @@ x-app-env:
   environment:
     - SERVICE_FQDN_CADDY=pm.bini.vn
     - SERVICE_URL_CADDY=https://pm.bini.vn
-    - CR_DB_URL='postgresql://selfhost:ouIGe_nYiOhH7Isv@cockroach:26257/defaultdb?sslmode=disable'
+    - CR_DB_URL='postgresql://selfhost:ouIGe_nYiOhH7Isv@cockroach:26257/defaultdb'
     - DOCKER_NAME=huly
     - HULY_VERSION=v0.6.502
     - SECRET=changeme-secret-key
