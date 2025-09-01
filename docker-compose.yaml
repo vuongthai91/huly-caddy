@@ -1,32 +1,4 @@
 version: 3.9
-x-app-env:
-  environment:
-    - SERVICE_FQDN_CADDY=pm.bini.vn
-    - SERVICE_URL_CADDY=https://pm.bini.vn
-    - CR_DB_URL='postgresql://selfhost:ouIGe_nYiOhH7Isv@cockroach:26257/defaultdb'
-    - DOCKER_NAME=huly
-    - HULY_VERSION=v0.6.502
-    - SECRET=changeme-secret-key
-    - HOST_ADDRESS=${SERVICE_FQDN_CADDY}
-    - TITLE=Huly Self Host
-    - DEFAULT_LANGUAGE=en
-    - LAST_NAME_FIRST=true
-    - SECURE=false
-    - CR_DATABASE=defaultdb
-    - CR_USERNAME=selfhost
-    - CR_USER_PASSWORD=ouIGe_nYiOhH7Isv
-    - VOLUME_CR_DATA_PATH=cr_data
-    - VOLUME_CR_CERTS_PATH=cr_certs
-    - VOLUME_ELASTIC_PATH=elastic
-    - VOLUME_FILES_PATH=files
-    - VOLUME_REDPANDA_PATH=redpanda
-    - REDPANDA_ADMIN_USER=admin
-    - REDPANDA_ADMIN_PWD=LbrDTs2MInIbV6P5
-    - MINIO_ROOT_USER=minioadmin
-    - MINIO_ROOT_PASSWORD=C4HTXlzFTNi4OePS
-    - ELASTIC_PASSWORD=C4HTXlzFTNi4OePS
-    - HULY_DOMAIN=${HOST_ADDRESS}
-    - STREAM_URL=
 name: '${DOCKER_NAME:-huly}'
 services:
   caddy:
