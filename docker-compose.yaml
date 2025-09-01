@@ -7,7 +7,7 @@ x-app-env:
     - DOCKER_NAME=huly
     - HULY_VERSION=v0.6.502
     - SECRET=changeme-secret-key
-    - HOST_ADDRESS=${SERVICE_FQDN_FRONT}
+    - HOST_ADDRESS=${SERVICE_FQDN_CADDY}
     - TITLE=Huly Self Host
     - DEFAULT_LANGUAGE=en
     - LAST_NAME_FIRST=true
