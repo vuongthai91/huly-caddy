@@ -3,6 +3,8 @@ name: '${DOCKER_NAME:-huly}'
 services:
   caddy:
     image: caddy:2.10.2-alpine
+    ports:
+      - 8080:8080
     volumes:
       - ./caddy:/etc/caddy
       - caddy_data:/data
