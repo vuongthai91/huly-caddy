@@ -123,12 +123,12 @@ services:
       - SERVER_PORT=3000
       - 'SERVER_SECRET=${SECRET}'
       - 'DB_URL=${CR_DB_URL}'
-      - 'TRANSACTOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_transactor'
+      - 'TRANSACTOR_URL=ws://transactor:3333;ws${SECURE:+s}://${HOST_ADDRESS}/_transactor'
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
-      - 'FRONT_URL=http://front:8080'
-      - 'STATS_URL=http://stats:4900'
+      - 'FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}'
+      - 'STATS_URL=http${SECURE:+s}://${HOST_ADDRESS}/stats'
       - 'MODEL_ENABLED=*'
-      - 'ACCOUNTS_URL=http://account:3000'
+      - 'ACCOUNTS_URL=http${SECURE:+s}://${HOST_ADDRESS}'
       - ACCOUNT_PORT=3000
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
@@ -137,7 +137,7 @@ services:
     environment:
       - 'SERVER_SECRET=${SECRET}'
       - 'DB_URL=${CR_DB_URL}'
-      - 'TRANSACTOR_URL=ws${SECURE:+s}://${HOST_ADDRESS}/_transactor'
+      - 'TRANSACTOR_URL=ws://transactor:3333;ws${SECURE:+s}://${HOST_ADDRESS}/_transactor'
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
       - 'MODEL_ENABLED=*'
       - 'ACCOUNTS_URL=http://account:3000'
