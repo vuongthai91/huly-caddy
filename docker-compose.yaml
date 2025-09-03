@@ -128,6 +128,7 @@ services:
       - 'FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}'
       - 'STATS_URL=http${SECURE:+s}://${HOST_ADDRESS}/stats'
       - 'MODEL_ENABLED=*'
+      - ADMIN_EMAILS=admin,${PLATFORM_ADMIN_EMAILS}
       - 'ACCOUNTS_URL=http${SECURE:+s}://${HOST_ADDRESS}'
       - ACCOUNT_PORT=3000
       - 'QUEUE_CONFIG=redpanda:9092'
