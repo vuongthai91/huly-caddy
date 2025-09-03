@@ -22,7 +22,7 @@ services:
       - '${VOLUME_CR_CERTS_PATH:-cr_certs}:/cockroach/certs'
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", 'cockroach sql --execute "select 1" --url "postgresql://${CR_USERNAME}:${CR_USER_PASSWORD}@localhost:26257/${CR_DATABASE}?sslmode=disable" >/dev/null 2>&1']
+      test: ["CMD-SHELL", 'cockroach sql --execute "select 1" --url "postgresql://${CR_USERNAME}:${CR_USER_PASSWORD}@cockroach:26257/${CR_DATABASE}?sslmode=disable" >/dev/null 2>&1']
       interval: 5s
       timeout: 3s
       retries: 40
