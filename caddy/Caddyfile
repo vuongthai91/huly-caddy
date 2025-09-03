@@ -20,10 +20,6 @@
   handle_path /_stats* {
     reverse_proxy stats:4900
   }
-  # /_love -> love:8096
-  handle_path /_love* {
-    reverse_proxy love:8096
-  }
   # /_collaborator -> collaborator:3078 (WebSocket)
   handle_path /_collaborator* {
     reverse_proxy collaborator:3078

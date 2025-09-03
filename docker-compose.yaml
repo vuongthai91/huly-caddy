@@ -11,7 +11,7 @@ services:
       - caddy_config:/config
     restart: unless-stopped
   cockroach:
-    image: 'cockroachdb/cockroach:latest-v24.2'
+    image: 'cockroachdb/cockroach:latest-v24.2.7'
     command: 'start-single-node --accept-sql-without-tls'
     environment:
       - 'COCKROACH_DATABASE=${CR_DATABASE}'
@@ -21,6 +21,11 @@ services:
       - '${VOLUME_CR_DATA_PATH:-cr_data}:/cockroach/cockroach-data'
       - '${VOLUME_CR_CERTS_PATH:-cr_certs}:/cockroach/certs'
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", 'cockroach sql --execute "select 1" --url "postgresql://root@localhost:26257/defaultdb?sslmode=disable" >/dev/null 2>&1']
+      interval: 5s
+      timeout: 3s
+      retries: 40
   redpanda:
     image: 'docker.redpanda.com/redpandadata/redpanda:v24.3.6'
     command:
@@ -120,6 +125,11 @@ services:
       - 'LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}'
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
+    depends_on:
+      cockroach:
+        condition: service_healthy
+      redpanda:
+        condition: service_healthy
   collaborator:
     image: 'hardcoreeng/collaborator:${HULY_VERSION:-latest}'
     environment:
@@ -129,6 +139,9 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
     restart: unless-stopped
+    depends_on:
+      redpanda:
+        condition: service_healthy
   account:
     image: 'hardcoreeng/account:${HULY_VERSION:-latest}'
     environment:
@@ -145,6 +158,11 @@ services:
       - ACCOUNT_PORT=3000
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
+    depends_on:
+      cockroach:
+        condition: service_healthy
+      redpanda:
+        condition: service_healthy
   workspace:
     image: 'hardcoreeng/workspace:${HULY_VERSION:-latest}'
     environment:
@@ -157,6 +175,11 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
+    depends_on:
+      cockroach:
+        condition: service_healthy
+      redpanda:
+        condition: service_healthy
   front:
     image: 'hardcoreeng/front:${HULY_VERSION:-latest}'
     environment:
@@ -192,6 +215,11 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
+    depends_on:
+      cockroach:
+        condition: service_healthy
+      redpanda:
+        condition: service_healthy
   stats:
     image: 'hardcoreeng/stats:${HULY_VERSION:-latest}'
     environment:
