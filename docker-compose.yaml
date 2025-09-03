@@ -95,7 +95,7 @@ services:
           memory: 500M
     restart: unless-stopped
   love:
-    image: hardcoreeng/love:v0.6.502
+    image: 'hardcoreeng/love:${HULY_VERSION:-latest}'
     container_name: love
     environment:
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
@@ -108,6 +108,7 @@ services:
       - 'LIVEKIT_API_KEY=${LIVEKIT_API_KEY}'
       - 'LIVEKIT_API_SECRET=${LIVEKIT_API_SECRET}'
     restart: unless-stopped
+
   transactor:
     image: 'hardcoreeng/transactor:${HULY_VERSION:-latest}'
     environment:
