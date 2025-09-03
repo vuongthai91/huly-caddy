@@ -47,11 +47,7 @@ services:
     volumes:
       - '${VOLUME_REDPANDA_PATH:-redpanda}:/var/lib/redpanda/data'
     healthcheck:
-      test:
-        - CMD
-        - bash
-        - '-lc'
-        - 'rpk cluster info -X user=${REDPANDA_ADMIN_USER:-admin} -X pass=${REDPANDA_ADMIN_PWD:-admin_pass} >/dev/null 2>&1'
+      test: ['CMD', 'rpk', 'cluster', 'info', '-X', 'user=${REDPANDA_ADMIN_USER}', '-X', 'pass=${REDPANDA_ADMIN_PWD}']
       interval: 10s
       timeout: 5s
       retries: 10
@@ -125,11 +121,6 @@ services:
       - 'LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}'
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
-    depends_on:
-      cockroach:
-        condition: service_healthy
-      redpanda:
-        condition: service_healthy
   collaborator:
     image: 'hardcoreeng/collaborator:${HULY_VERSION:-latest}'
     environment:
@@ -139,9 +130,6 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
     restart: unless-stopped
-    depends_on:
-      redpanda:
-        condition: service_healthy
   account:
     image: 'hardcoreeng/account:${HULY_VERSION:-latest}'
     environment:
@@ -158,11 +146,6 @@ services:
       - ACCOUNT_PORT=3000
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
-    depends_on:
-      cockroach:
-        condition: service_healthy
-      redpanda:
-        condition: service_healthy
   workspace:
     image: 'hardcoreeng/workspace:${HULY_VERSION:-latest}'
     environment:
@@ -175,11 +158,6 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
-    depends_on:
-      cockroach:
-        condition: service_healthy
-      redpanda:
-        condition: service_healthy
   front:
     image: 'hardcoreeng/front:${HULY_VERSION:-latest}'
     environment:
@@ -215,11 +193,6 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'QUEUE_CONFIG=redpanda:9092'
     restart: unless-stopped
-    depends_on:
-      cockroach:
-        condition: service_healthy
-      redpanda:
-        condition: service_healthy
   stats:
     image: 'hardcoreeng/stats:${HULY_VERSION:-latest}'
     environment:
