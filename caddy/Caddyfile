@@ -24,6 +24,14 @@
   handle_path /_love* {
     reverse_proxy love:8096
   }
+  # /_print -> print:4005
+  handle_path /_print* {
+    reverse_proxy print:4005
+  }
+  # /_preview -> preview:4040
+  handle_path /_print* {
+    reverse_proxy preview:4040
+  }
   # /_collaborator -> collaborator:3078 (WebSocket)
   handle_path /_collaborator* {
     reverse_proxy collaborator:3078
