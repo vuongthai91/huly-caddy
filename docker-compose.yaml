@@ -214,6 +214,27 @@ services:
       - PORT=4900
       - 'SERVER_SECRET=${SECRET}'
     restart: unless-stopped
+  print:
+    image: 'hardcoreeng/print:${HULY_VERSION:-latest}'
+    restart: unless-stopped
+    environment:
+      - 'SECRET=${SECRET}'
+      - REGION=cockroach
+      - 'QUEUE_CONFIG=redpanda:9092'
+      - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
+      - STATS_URL=http://stats:4900
+      - ACCOUNTS_URL=http://account:3000
+  export:
+    image: 'hardcoreeng/export:${HULY_VERSION:-latest}'
+    environment:
+      - PORT=4009
+      - SECRET=secret
+      - SERVICE_ID=export-service
+      - DB_URL=${DB_CR_URL}
+      - STATS_URL=http://stats:4900
+      - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
+      - ACCOUNTS_URL=http://account:3000
+    restart: unless-stopped
 volumes:
   elastic: 
   files: 
