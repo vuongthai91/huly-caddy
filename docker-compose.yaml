@@ -141,13 +141,13 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
     restart: unless-stopped
-  preview:
-    image: 'hardcoreeng/preview:${HULY_VERSION:-latest}'
-    environment:
-      - 'SECRET=${SECRET}'
-      - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
-      - CACHE_PATH=/data/cache
-    restart: unless-stopped
+  # preview:
+  #   image: 'hardcoreeng/preview:${HULY_VERSION:-latest}'
+  #   environment:
+  #     - 'SECRET=${SECRET}'
+  #     - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
+  #     - CACHE_PATH=/data/cache
+  #   restart: unless-stopped
   account:
     image: 'hardcoreeng/account:${HULY_VERSION:-latest}'
     environment:
