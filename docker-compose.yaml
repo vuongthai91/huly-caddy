@@ -142,7 +142,7 @@ services:
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
     restart: unless-stopped
   preview:
-    image: 'hardcoreeng/preview'
+    image: 'hardcoreeng/preview:${HULY_VERSION:-latest}'
     environment:
       - 'SECRET=${SECRET}'
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
