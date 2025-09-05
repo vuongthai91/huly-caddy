@@ -106,7 +106,17 @@ services:
       - 'LIVEKIT_HOST=${LIVEKIT_HOST}'
       - 'LIVEKIT_API_KEY=${LIVEKIT_API_KEY}'
       - 'LIVEKIT_API_SECRET=${LIVEKIT_API_SECRET}'
-  #  restart: unless-stopped
+    restart: unless-stopped
+  mail:
+    image: 'hardcoreeng/mail:${HULY_VERSION:-latest}'
+    environment:
+      - PORT=8097
+      - SOURCE=${EMAIL_FROM}
+      - SMTP_HOST=${SMTP_SERVER_URL}
+      - SMTP_PORT=${SMTP_SERVER_PORT}
+      - SMTP_USERNAME=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+  restart: unless-stopped
   transactor:
     image: 'hardcoreeng/transactor:${HULY_VERSION:-latest}'
     environment:
@@ -120,6 +130,7 @@ services:
       - 'STATS_URL=http://stats:4900'
       - 'LAST_NAME_FIRST=${LAST_NAME_FIRST:-true}'
       - 'QUEUE_CONFIG=redpanda:9092'
+      - MAIL_URL=http://mail:8097
     restart: unless-stopped
   collaborator:
     image: 'hardcoreeng/collaborator:${HULY_VERSION:-latest}'
@@ -146,6 +157,7 @@ services:
       - ACCOUNT_PORT=3000
       - 'QUEUE_CONFIG=redpanda:9092'
       - DISABLE_SIGNUP=${DISABLE_SIGNUP}
+      - MAIL_URL=http://mail:8097
     restart: unless-stopped
   workspace:
     image: 'hardcoreeng/workspace:${HULY_VERSION:-latest}'
