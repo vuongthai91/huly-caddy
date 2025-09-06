@@ -173,6 +173,7 @@ services:
       - 'DB_URL=${CR_DB_URL}'
       - 'TRANSACTOR_URL=ws://transactor:3333;ws${SECURE:+s}://${HOST_ADDRESS}/_transactor'
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
+      - 'FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}'
       - 'MODEL_ENABLED=*'
       - 'ACCOUNTS_URL=http://account:3000'
       - 'STATS_URL=http://stats:4900'
@@ -232,6 +233,7 @@ services:
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
       - STATS_URL=http://stats:4900
       - ACCOUNTS_URL=http://account:3000
+      - 'FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}'
   export:
     image: 'hardcoreeng/export:${HULY_VERSION:-latest}'
     environment:
@@ -242,6 +244,7 @@ services:
       - STATS_URL=http://stats:4900
       - 'STORAGE_CONFIG=minio|minio?accessKey=${MINIO_ROOT_USER}&secretKey=${MINIO_ROOT_PASSWORD}'
       - ACCOUNTS_URL=http://account:3000
+      - 'FRONT_URL=http${SECURE:+s}://${HOST_ADDRESS}'
     restart: unless-stopped
 volumes:
   elastic: 
